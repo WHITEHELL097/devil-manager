@@ -32,7 +32,7 @@ Your donation might also me get me a new feature or two, which I wasn't able to 
 
 All the fund would be put into my services such as database, storage and hosting!
 
-You can donate by contacting my owner: [Captain Ezio](http://t.me/whitehell097)
+You can donate by contacting my owner: [🔥⃞⃨͎͍⃕⃗⃕⃔ 𝐖𝐇𝐈𝐓𝐄🇩𝙚𝙫𝙞𝙡 𝙠𝙞𝙣𝙜≛⃝≛⃝](http://t.me/whitehell097)
      """
 
     LOGGER.info(f"{m.from_user.id} fetched donation text in {m.chat.id}")
@@ -107,7 +107,7 @@ async def start(c: Gojo, m: Message):
                 
         try:
             cpt = f"""
-Hey [{m.from_user.first_name}](http://t.me/{m.from_user.username})! I am @whitehell097 's assistant ✨.
+Hey [{m.from_user.first_name}](http://t.me/{m.from_user.username})! I am 𝕯𝖊𝖛𝖎𝖑 𝕾𝖆七𝖔𝖗𝖀 ✨.
 I'm here to help you manage your group(s)!
 Hit /help to find out more about how to use me in my full potential!
 
@@ -146,7 +146,7 @@ Join my [News Channel](https://t.me/devils_bots) to get information on all the l
 async def start_back(_, q: CallbackQuery):
     try:
         cpt = f"""
-Hey [{q.from_user.first_name}](http://t.me/{q.from_user.username})! I am @whitehell097 's assistant ✨.
+Hey [{q.from_user.first_name}](http://t.me/{q.from_user.username})! I am 𝕯𝖊𝖛𝖎𝖑 𝕾𝖆七𝖔𝖗𝖀 ✨.
 I'm here to help you manage your group(s)!
 Hit /help to find out more about how to use me in my full potential!
 
@@ -168,7 +168,7 @@ async def commands_menu(_, q: CallbackQuery):
     keyboard = ikb(ou, True)
     try:
         cpt = f"""
-Hey **[{q.from_user.first_name}](http://t.me/{q.from_user.username})**! I am Gojo✨.
+Hey **[{q.from_user.first_name}](http://t.me/{q.from_user.username})**! I am 𝕯𝖊𝖛𝖎𝖑 𝕾𝖆七𝖔𝖗𝖀✨.
 I'm here to help you manage your group(s)!
 Commands available:
 × /start: Start the bot
@@ -241,7 +241,7 @@ async def help_menu(_, m: Message):
             ou = await gen_cmds_kb(m)
             keyboard = ikb(ou, True)
             msg = f"""
-Hey **[{m.from_user.first_name}](http://t.me/{m.from_user.username})**!I am @whitehell097 's assistant✨.
+Hey **[{m.from_user.first_name}](http://t.me/{m.from_user.username})**!I am 𝕯𝖊𝖛𝖎𝖑 𝕾𝖆七𝖔𝖗𝖀✨.
 I'm here to help you manage your group(s)!
 Commands available:
 × /start: Start the bot
