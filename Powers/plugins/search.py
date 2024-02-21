@@ -243,27 +243,77 @@ async def getText(message: Message):
         return None
 
 @Gojo.on_message(command(["images","imgs"]))
-async def get_image_search(_, m: Message):
-    # Credits: https://t.me/whitehell097
-    query = await getText(m)
-    if not query:
-        await m.reply_text("**USAGE**\n /images [query]")
+async def okgoogle(img):
+    """For .reverse command, Google search images and stickers."""
+    if os.path.isfile("okgoogle.png"):
+        os.remove("okgoogle.png")
+
+    message = await img.get_reply_message()
+    if message and message.media:
+        photo = io.BytesIO()
+        await tbot.download_media(message, photo)
+    else:
+        await img.reply("`Reply to photo or sticker fu*ker`")
         return
-    text = query.replace(" ", "%")
-    resp = get(f"https://nova-api-seven.vercel.app/api/images?name={text}")
-    if type(resp) == int:
-        await m.reply_text(f"Status code: {resp}\nUnable find any results regarding your query :/")
-        return
-    image_urls = resp.get("image_urls", [])[:10]
-    ab = await m.reply_text("Getting Your Images... Wait A Min..\nCredits: @NovaXMod")
-    Ok = []
-    for a in image_urls:
-        Ok.append(InputMediaPhoto(a))
-    try:
-        await m.reply_media_group(media=Ok)
-        await ab.delete()
-    except Exception:
-        await ab.edit("Error occurred while sending images. Please try again.")
+
+    if photo:
+        dev = await img.reply("`Processing...`")
+        try:
+            image = Image.open(photo)
+        except OSError:
+            await dev.edit("`Unsupported sexuality, most likely.`")
+            return
+        name = "okgoogle.png"
+        image.save(name, "PNG")
+        image.close()
+        # https://stackoverflow.com/questions/23270175/google-reverse-image-search-using-post-request#28792943
+        searchUrl = "https://www.google.com/searchbyimage/upload"
+        multipart = {"encoded_image": (name, open(name, "rb")), "image_content": ""}
+        response = requests.post(searchUrl, files=multipart, allow_redirects=False)
+        fetchUrl = response.headers["Location"]
+
+        if response != 400:
+            await dev.edit(
+                "`Image successfully uploaded to Google. Maybe.`"
+                "\n`Parsing source now. Maybe.`"
+            )
+        else:
+            await dev.edit("`Google told me to fu*k off.`")
+            return
+
+        os.remove(name)
+        match = await ParseSauce(fetchUrl + "&preferences?hl=en&fg=1#languages")
+        guess = match["best_guess"]
+        imgspage = match["similar_images"]
+
+        if guess and imgspage:
+            await dev.edit(f"[{guess}]({fetchUrl})\n\n`Looking for this Image...`")
+        else:
+            await dev.edit("`Can't find this piece of shit.`")
+            return
+
+        if img.pattern_match.group(1):
+            lim = img.pattern_match.group(1)
+        else:
+            lim = 3
+        images = await scam(match, lim)
+        yeet = []
+        for i in images:
+            k = requests.get(i)
+            yeet.append(k.content)
+        try:
+            await tbot.send_file(
+                entity=await tbot.get_input_entity(img.chat_id),
+                file=yeet,
+                reply_to=img,
+            )
+        except TypeError:
+            pass
+        await dev.edit(
+            f"[{guess}]({fetchUrl})\n\n[Visually similar images]({imgspage})"
+        )
+
+
 
 __PLUGIN__ = "search"
 
